@@ -5,7 +5,7 @@ namespace AdventOfCode2024.Solvers {
         {
             Console.WriteLine("** Wohoo! Day 1 of Advent of Code! **");
 
-            (int total_distance, int similarity_score) = Parse("InputData/day1.txt");
+            (int total_distance, int similarity_score) = Parse("InputData/day1_Sample.txt");
 
             Console.WriteLine($"The total distance is {total_distance} and the similarity score is {similarity_score}!");
 
@@ -19,14 +19,11 @@ namespace AdventOfCode2024.Solvers {
             List<int> left = new List<int>();
             List<int> right = new List<int>();
 
-            using(StreamReader file = new StreamReader(path)) {
-                string line;
-                while ((line = file.ReadLine()) != null) {
-                    string[] parts = line.Split("   ");
-                    left.Add(int.Parse(parts[0]));
-                    right.Add(int.Parse(parts[1]));
-                }
-                file.Close();
+            string[] lines = File.ReadAllLines(path);
+            foreach(string line in lines) {
+                string[] parts = line.Split("   ");
+                left.Add(int.Parse(parts[0]));
+                right.Add(int.Parse(parts[1]));
             }
 
             left.Sort();
