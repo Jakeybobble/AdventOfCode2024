@@ -11,5 +11,6 @@ class Program
     {
         var solver = SolverFactory.GetSolver(day);
         solver.Solve();
+        
     }
 }
