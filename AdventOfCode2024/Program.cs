@@ -1,9 +1,15 @@
-﻿namespace AdventOfCode2024;
+﻿using AdventOfCode2024.Solvers;
+
+namespace AdventOfCode2024;
 
 class Program
 {
+
+    static int day = 1;
+
     static void Main(string[] args)
     {
-        Console.WriteLine("Hello, World!");
+        var solver = SolverFactory.GetSolver(day);
+        solver.Solve();
     }
 }
