@@ -5,15 +5,16 @@ namespace AdventOfCode2024.Solvers {
         {
             Console.WriteLine("** Wohoo! Day 1 of Advent of Code! **");
 
-            int total_distance = Parse("InputData/day1.txt");
+            (int total_distance, int similarity_score) = Parse("InputData/day1.txt");
 
-            Console.WriteLine($"The total distance is {total_distance}!");
+            Console.WriteLine($"The total distance is {total_distance} and the similarity score is {similarity_score}!");
 
         }
 
-        private int Parse(string path)
+        private (int, int) Parse(string path)
         {
             int total_distance = 0;
+            int similarity_score = 0;
 
             List<int> left = new List<int>();
             List<int> right = new List<int>();
@@ -33,9 +34,15 @@ namespace AdventOfCode2024.Solvers {
 
             for(int i = 0; i < left.Count; i++) {
                 int distance = Math.Abs(left[i] - right[i]);
+                int similarity = left[i] * right.Count(m => m == left[i]);
+
                 total_distance += distance;
+                similarity_score += similarity;
+
             }
-            return total_distance;
+
+
+            return (total_distance, similarity_score);
 
         }
     }
