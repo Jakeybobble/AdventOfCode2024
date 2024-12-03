@@ -5,7 +5,7 @@ namespace AdventOfCode2024;
 class Program
 {
 
-    static int day = 1;
+    static int day = 2;
 
     static void Main(string[] args)
     {

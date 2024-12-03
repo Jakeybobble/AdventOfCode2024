@@ -6,6 +6,7 @@ namespace AdventOfCode2024 {
         {
             return day switch {
                 1 => new Day1(),
+                2 => new Day2(),
                 _ => throw new Exception("No such day!")
             };
         }
