@@ -14,14 +14,18 @@ namespace AdventOfCode2024.Solvers {
         private int Parse(string path) {
             int total = 0;
             string mul = "mul(";
+            string s_do = "do()";
+            string s_dont = "don't()";
 
             string test = "";
+
+            var ignore = false;
 
             string input = File.ReadAllText(path);
             input+="a"; // Just add another character to not check index out of bounds
             for(int i = 0; i < input.Length; i++) {
                 char c = input[i];
-                if(c == mul[0]) {
+                if(c == mul[0] && !ignore) {
                     string sub = input.Substring(i, mul.Length);
                     if(sub == mul) {
                         // Get numbers
@@ -48,6 +52,16 @@ namespace AdventOfCode2024.Solvers {
                         }
                     }
 
+                }else{
+
+                    if(Substring(input, i, s_do.Length) == s_do) {
+                        //Console.WriteLine($"Found a do() at {i}");
+                        ignore = false;
+                    }
+                    if(Substring(input, i, s_dont.Length) == s_dont) {
+                        //Console.WriteLine($"Found a don't() at {i}");
+                        ignore = true;
+                    }
                 }
 
 
@@ -56,6 +70,11 @@ namespace AdventOfCode2024.Solvers {
             Console.WriteLine(test);
 
             return total;
+        }
+
+        private string Substring(string str, int index, int length) {
+            string sub = new String(str.Skip(index).Take(length).ToArray());
+            return sub;
         }
     }
 }
