@@ -2,13 +2,12 @@ namespace AdventOfCode2024.Solvers {
     public class Day4 : ISolver {
         public void Solve() {
             Console.WriteLine("** Waow it's day 4 **");
-            int answer = Parse("InputData/day4.txt");
-            Console.WriteLine($"The answer appears to be {answer}...!");
+            (int xmas_count, int x_count) = Parse("InputData/day4.txt");
+            Console.WriteLine($"XMAS count: {xmas_count}, X count: {x_count}!");
         }
 
         class Box {
             public int x; public int y; public char Character;
-            public bool Enabled = false;
             public Box(int x, int y, char character) {
                 this.x = x; this.y = y; this.Character = character;
             }
@@ -18,8 +17,9 @@ namespace AdventOfCode2024.Solvers {
         private static int height = 0;
         private static Box[,] boxes;
 
-        private int Parse(string path) {
-            int count = 0;
+        private (int, int) Parse(string path) {
+            int xmas_count = 0;
+            int x_count = 0;
 
             int[] dx = { 1, 1, 0, -1, -1, -1, 0, 1 }; // Horizontal steps
             int[] dy = { 0, 1, 1, 1, 0, -1, -1, -1 }; // Vertical steps
@@ -43,31 +43,17 @@ namespace AdventOfCode2024.Solvers {
                     // Check in all directions
                     for(int i = 0; i < 8; i++) {
                         string str = GetString(x,y,dx[i], dy[i]);
-                        if(str == "XMAS") count++;
+                        if(str == "XMAS") xmas_count++;
                     }
+                    if(box.Character == 'A' && IsX(x,y)){
+                        x_count++;
+                    }
+
                 }
                 //Console.WriteLine();
             }
 
-            /* Test...
-            for(int i = 0; i < 8; i++) {
-                string str = GetString(0,0,dx[i], dy[i]);
-                Console.WriteLine(str);
-            }
-            */
-
-            // Draw all
-            for(int y = 0; y < height; y++) {
-                for(int x = 0; x < width; x++) {
-                    Box box = boxes[x,y];
-                    char symbol = box.Enabled ? box.Character : '.';
-                    Console.Write(symbol);
-                    
-                }
-                Console.WriteLine();
-            }
-
-            return count;
+            return (xmas_count, x_count);
         }
 
         private Box? Get(int x, int y) {
@@ -84,6 +70,22 @@ namespace AdventOfCode2024.Solvers {
                 }
             }
             return str;
+        }
+
+        private bool IsX(int x, int y) {
+            if( // Not pretty
+            (
+                (Get(x-1,y-1)?.Character == 'M' && Get(x+1,y+1)?.Character == 'S')
+                || (Get(x-1,y-1)?.Character == 'S' && Get(x+1,y+1)?.Character == 'M')
+            ) &&
+            (
+                (Get(x+1,y-1)?.Character == 'M' && Get(x-1,y+1)?.Character == 'S')
+                || (Get(x+1,y-1)?.Character == 'S' && Get(x-1,y+1)?.Character == 'M')
+            )
+            ) {
+                return true;
+            }
+            return false;
         }
     }
 }
