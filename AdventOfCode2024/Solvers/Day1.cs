@@ -5,7 +5,7 @@ namespace AdventOfCode2024.Solvers {
         {
             Console.WriteLine("** Wohoo! Day 1 of Advent of Code! **");
 
-            (int total_distance, int similarity_score) = Parse("InputData/day1_Sample.txt");
+            (int total_distance, int similarity_score) = Parse("InputData/day1_sample.txt");
 
             Console.WriteLine($"The total distance is {total_distance} and the similarity score is {similarity_score}!");
 
