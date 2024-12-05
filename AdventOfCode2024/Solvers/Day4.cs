@@ -15,7 +15,7 @@ namespace AdventOfCode2024.Solvers {
 
         private static int width = 0;
         private static int height = 0;
-        private static Box[,] boxes;
+        private static Box[,] boxes = new Box[0,0];
 
         private (int, int) Parse(string path) {
             int xmas_count = 0;
