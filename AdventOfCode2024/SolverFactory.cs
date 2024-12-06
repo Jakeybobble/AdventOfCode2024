@@ -10,6 +10,7 @@ namespace AdventOfCode2024 {
                 3 => new Day3(),
                 4 => new Day4(),
                 5 => new Day5(),
+                6 => new Day6(),
                 _ => throw new Exception("No such day!")
             };
         }
